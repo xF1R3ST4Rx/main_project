@@ -1759,12 +1759,12 @@ TextureImporter:
       name: spritesheet_tiles_79
       rect:
         serializedVersion: 2
-        x: 896
+        x: 911
         y: 1664
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 2.8837204, y: 10.441858}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
