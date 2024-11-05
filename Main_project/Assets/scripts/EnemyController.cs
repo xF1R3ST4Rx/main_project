@@ -20,25 +20,25 @@ public class EnemyController : MonoBehaviour
         foreach (var Enemy in Enemies)
         {
             Vector2 newdirection = new Vector2(Enemy.transform.position.x, Enemy.transform.position.y + 1);
-            if (CanMove(newdirection)){
+            Vector2 diffdirection = new Vector2(Enemy.transform.position.x, Enemy.transform.position.y - 1);
+            Debug.Log(CanMove(newdirection));
+            if (CanMove(newdirection))
+            {
                 Enemy.transform.position = newdirection;
             }
             else
             {
-                Vector2 reverse = new Vector2(Enemy.transform.position.x, Enemy.transform.position.y - 1);
-                Enemy.transform.position = reverse;
+                    Enemy.transform.position = diffdirection;
             }
         }
     }
     private bool CanMove(Vector2 direction)
     {
-        Vector3Int gridPosition = ground.WorldToCell(transform.position + (Vector3)direction);
-        if (!ground.HasTile(gridPosition) || walls.HasTile(gridPosition))
+        Vector3Int gridPosition = ground.WorldToCell((Vector3)direction);
+        if (walls.HasTile(gridPosition))
         {
             return false;
         }
         return true;
     }
-
-
 }

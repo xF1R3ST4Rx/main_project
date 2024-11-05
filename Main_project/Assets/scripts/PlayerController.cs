@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private bool CanMove(Vector2 direction)
     {
         Vector3Int gridPosition = ground.WorldToCell(transform.position + (Vector3)direction);
-        if (!ground.HasTile(gridPosition) || walls.HasTile(gridPosition))
+        if (walls.HasTile(gridPosition))
         {
             return false;
         }
