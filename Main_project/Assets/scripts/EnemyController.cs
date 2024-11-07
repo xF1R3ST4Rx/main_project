@@ -10,25 +10,48 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap walls;
     [SerializeField] private List<GameObject> Enemies = new List<GameObject>();
+    [SerializeField] PlayerController controller;
     private void Update()
     {
         Move();
-        Debug.Log(Enemies[0].transform.position);
+
     }
     private void Move()
     {
-        foreach (var Enemy in Enemies)
+        Vector2 newdirection;
+        if (controller.getplayermoved() == true)
         {
-            Vector2 newdirection = new Vector2(Enemy.transform.position.x, Enemy.transform.position.y + 1);
-            Vector2 diffdirection = new Vector2(Enemy.transform.position.x, Enemy.transform.position.y - 1);
-            Debug.Log(CanMove(newdirection));
-            if (CanMove(newdirection))
+            foreach (GameObject enemy in Enemies)
             {
-                Enemy.transform.position = newdirection;
-            }
-            else
-            {
-                    Enemy.transform.position = diffdirection;
+                bool needSwitch = enemy.gameObject.GetComponent<Enemy>().Switch;
+                if (needSwitch)
+                {
+                    newdirection = new Vector2(enemy.transform.position.x, enemy.transform.position.y + 1);
+                    if (CanMove(newdirection))
+                    {
+                        Debug.Log("1");
+                        enemy.transform.position = newdirection;
+                        controller.playerhasmoved = false;
+                    }
+                    if (CanMove(newdirection) == false)
+                    {
+                        enemy.gameObject.GetComponent<Enemy>().Switch = false;
+                    }
+                }
+                else if (!needSwitch)
+                {
+                    newdirection = new Vector2(enemy.transform.position.x, enemy.transform.position.y - 1);
+                    if (CanMove(newdirection))
+                    {
+                        Debug.Log("1");
+                        enemy.transform.position = newdirection;
+                        controller.playerhasmoved = false;
+                    }
+                    if (CanMove(newdirection) == false)
+                    {
+                        enemy.gameObject.GetComponent<Enemy>().Switch = true;
+                    }
+                }
             }
         }
     }

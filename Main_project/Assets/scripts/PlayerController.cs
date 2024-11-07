@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Playermovement controls;
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap walls;
+    public bool playerhasmoved = false;
     private void Awake()
     {
         controls = new Playermovement();
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
         if (CanMove(direction))
         {
             transform.position += (Vector3)direction;
+            playerhasmoved = true;
         }
     }
 
@@ -42,4 +44,10 @@ public class PlayerController : MonoBehaviour
         }
         return true;
     }
+    public bool getplayermoved()
+    {
+    return playerhasmoved;
+    }
+
 }
+

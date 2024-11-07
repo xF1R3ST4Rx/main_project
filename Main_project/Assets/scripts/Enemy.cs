@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool switchs = true;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool Switch 
+    { get => switchs; set => switchs = value; }
+
 }
