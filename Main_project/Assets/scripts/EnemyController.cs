@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Tilemaps;
 
@@ -11,10 +12,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Tilemap walls;
     [SerializeField] private List<GameObject> Enemies = new List<GameObject>();
     [SerializeField] PlayerController controller;
+    [SerializeField] GameObject player;
     private void Update()
     {
         Move();
-
+        collisioncheck();
     }
     private void Move()
     {
@@ -63,5 +65,21 @@ public class EnemyController : MonoBehaviour
             return false;
         }
         return true;
+    }
+    public void collisioncheck()
+    {
+        for (int i = Enemies.Count - 1; i >= 0; i--)
+        {
+            if (getPosition(player).x == Enemies[i].transform.position.x && getPosition(player).y == Enemies[i].transform.position.y)
+            {
+                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(currentSceneIndex);
+            }
+        }
+    }
+    private Vector2 getPosition(GameObject player)
+    {
+        Vector2 pos = player.transform.position;
+        return pos;
     }
 }
