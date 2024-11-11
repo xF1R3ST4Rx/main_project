@@ -31,7 +31,6 @@ public class EnemyController : MonoBehaviour
                     newdirection = new Vector2(enemy.transform.position.x, enemy.transform.position.y + 1);
                     if (CanMove(newdirection))
                     {
-                        Debug.Log("1");
                         enemy.transform.position = newdirection;
                         controller.playerhasmoved = false;
                     }
@@ -45,7 +44,6 @@ public class EnemyController : MonoBehaviour
                     newdirection = new Vector2(enemy.transform.position.x, enemy.transform.position.y - 1);
                     if (CanMove(newdirection))
                     {
-                        Debug.Log("1");
                         enemy.transform.position = newdirection;
                         controller.playerhasmoved = false;
                     }
