@@ -1,15 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.SceneManagement;
-public class CollectableManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] List<GameObject> collectables = new List<GameObject>();
+    [SerializeField] TextMeshProUGUI levelUI;
+    private int currentSceneIndex;
     private void Start()
     {
-
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        levelUI.text = "Level: " + (SceneManager.GetActiveScene().buildIndex+1);
     }
     void Update()
     {
@@ -23,7 +28,7 @@ public class CollectableManager : MonoBehaviour
         }
         if (collectables.Count == 0)
         {
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
             SceneManager.LoadScene(currentSceneIndex + 1);
         }
     }
@@ -32,5 +37,7 @@ public class CollectableManager : MonoBehaviour
             Vector2 pos = player.transform.position;
             return pos;
         }
+        
+
     
 }

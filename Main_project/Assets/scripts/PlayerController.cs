@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameManager gamemanager;
     private Vector2 lastDirection;
     [SerializeField] GameObject player;
+    [SerializeField] List<GameObject> oilSpots = new List<GameObject>();
+    bool slickmove = false;
     private void Awake()
     {
         controls = new Playermovement();
@@ -33,11 +36,15 @@ public class PlayerController : MonoBehaviour
     //player movement 
     private void Move(Vector2 direction)
     {
-        Debug.Log(gamemanager.oiledMove(direction));
-        if (gamemanager.oiledMove(direction) == true && CanMove(lastDirection))
+        Debug.Log(oiledMove());
+        if (oiledMove() == true && CanMove(lastDirection))
         {
             transform.position += (Vector3)lastDirection;
             playerhasmoved = true;
+            if (CanMove(lastDirection) == false)
+            {
+                slickmove = false;
+            }
         }
         else if (CanMove(direction))
         {
@@ -59,12 +66,23 @@ public class PlayerController : MonoBehaviour
     //gets if the player has moved for the enemy script
     public bool getplayermoved()
     {
-    return playerhasmoved;
+        return playerhasmoved;
     }
     //returns last direction 
     public Vector2 GetLastDirection()
     {
         return lastDirection;
+    }
+    public bool oiledMove()
+    {
+        foreach (GameObject spill in oilSpots)
+        {
+            if (player.transform.position.x == spill.transform.position.x && player.transform.position.y == spill.transform.position.y || (slickmove == true && CanMove(lastDirection)))
+            {
+                return slickmove = true;
+            }
+        }
+        return false;
     }
 }
 
