@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -13,6 +16,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private List<GameObject> Enemies = new List<GameObject>();
     [SerializeField] PlayerController controller;
     [SerializeField] GameObject player;
+    [SerializeField] TextMeshProUGUI gameOver;
+    [SerializeField] Button reset;
+    private void Awake()
+    {
+        reset.GetComponent<Button>().onClick.AddListener(RestartScene);
+    }
     private void Update()
     {
         Move();
@@ -70,8 +79,9 @@ public class EnemyController : MonoBehaviour
         {
             if (getPosition(player).x == Enemies[i].transform.position.x && getPosition(player).y == Enemies[i].transform.position.y)
             {
-                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-                SceneManager.LoadScene(currentSceneIndex);
+                gameOver.gameObject.SetActive(true);
+                controller.enabled = false;
+                reset.gameObject.SetActive(true);
             }
         }
     }
@@ -79,5 +89,10 @@ public class EnemyController : MonoBehaviour
     {
         Vector2 pos = player.transform.position;
         return pos;
+    }
+    void RestartScene()
+    {
+        int currentsceneindex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentsceneindex);
     }
 }
