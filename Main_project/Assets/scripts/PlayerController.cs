@@ -9,6 +9,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class PlayerController : MonoBehaviour
 {
     private Playermovement controls;
+    [SerializeField] SoundManager sound;
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap walls;
     public bool playerhasmoved = false;
@@ -36,10 +37,10 @@ public class PlayerController : MonoBehaviour
     //player movement 
     private void Move(Vector2 direction)
     {
-        Debug.Log(oiledMove());
         if (oiledMove() == true && CanMove(lastDirection))
         {
             transform.position += (Vector3)lastDirection;
+            sound.PlaySound();
             playerhasmoved = true;
             if (CanMove(lastDirection) == false)
             {
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
             transform.position += (Vector3)direction;
             playerhasmoved = true;
             lastDirection = direction;
+            sound.PlaySound();
         }
     }
     //checks if can move

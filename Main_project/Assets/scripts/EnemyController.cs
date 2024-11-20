@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -18,14 +19,17 @@ public class EnemyController : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] TextMeshProUGUI gameOver;
     [SerializeField] Button reset;
-    private void Awake()
-    {
-        reset.GetComponent<Button>().onClick.AddListener(RestartScene);
-    }
+    [SerializeField] SoundManager sound;
+    bool hascollide = false;
     private void Update()
     {
+        Debug.Log(hascollide);
         Move();
         collisioncheck();
+        if(hascollide == true)
+        {
+            sound.PlaySound();
+        }
     }
     private void Move()
     {
@@ -79,9 +83,9 @@ public class EnemyController : MonoBehaviour
         {
             if (getPosition(player).x == Enemies[i].transform.position.x && getPosition(player).y == Enemies[i].transform.position.y)
             {
-                gameOver.gameObject.SetActive(true);
-                controller.enabled = false;
-                reset.gameObject.SetActive(true);
+                hascollide = true;
+                int currentsceneindex = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(currentsceneindex);
             }
         }
     }
@@ -89,10 +93,5 @@ public class EnemyController : MonoBehaviour
     {
         Vector2 pos = player.transform.position;
         return pos;
-    }
-    void RestartScene()
-    {
-        int currentsceneindex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentsceneindex);
     }
 }
