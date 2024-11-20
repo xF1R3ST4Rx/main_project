@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     private Playermovement controls;
     [SerializeField] SoundManager sound;
+    [SerializeField] SoundManager honk;
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap walls;
     public bool playerhasmoved = false;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] List<GameObject> oilSpots = new List<GameObject>();
     bool slickmove = false;
+    [SerializeField] EnemyController enemy;
     private void Awake()
     {
         controls = new Playermovement();
@@ -53,6 +55,10 @@ public class PlayerController : MonoBehaviour
             playerhasmoved = true;
             lastDirection = direction;
             sound.PlaySound();
+        }
+        if(enemy.getcollide() == true)
+        {
+            honk.PlaySound();
         }
     }
     //checks if can move

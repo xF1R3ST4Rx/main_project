@@ -19,17 +19,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] TextMeshProUGUI gameOver;
     [SerializeField] Button reset;
-    [SerializeField] SoundManager sound;
     bool hascollide = false;
     private void Update()
     {
-        Debug.Log(hascollide);
         Move();
         collisioncheck();
-        if(hascollide == true)
-        {
-            sound.PlaySound();
-        }
     }
     private void Move()
     {
@@ -93,5 +87,9 @@ public class EnemyController : MonoBehaviour
     {
         Vector2 pos = player.transform.position;
         return pos;
+    }
+    public bool getcollide()
+    {
+        return hascollide;
     }
 }

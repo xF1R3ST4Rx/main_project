@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSource;  // Reference to the AudioSource component
-    [SerializeField] private AudioClip soundClip;     // The .wav file to play
+    [SerializeField] private AudioSource audioSource; 
+    [SerializeField] private AudioClip soundClip;     
 
     void Start()
     { 
