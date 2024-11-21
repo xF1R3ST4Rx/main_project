@@ -111,6 +111,7 @@ public class EnemyController : MonoBehaviour
             if (getPosition(player).x == Enemies[i].transform.position.x && getPosition(player).y == Enemies[i].transform.position.y)
             {
                 hascollide = true;
+                //These next two lines came from help from Chatgpt as I didn't fully understand how scenemanager worked and needed help with the scene change.
                 int currentsceneindex = SceneManager.GetActiveScene().buildIndex;
                 SceneManager.LoadScene(currentsceneindex);
             }

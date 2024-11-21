@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class endgameManager : MonoBehaviour
 {
-    [SerializeField] private Button restart; 
+    [SerializeField] private Button restart;
     void Start()
     {
         if (restart != null)
