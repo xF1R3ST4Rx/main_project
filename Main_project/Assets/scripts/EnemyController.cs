@@ -32,31 +32,64 @@ public class EnemyController : MonoBehaviour
         {
             foreach (GameObject enemy in Enemies)
             {
-                bool needSwitch = enemy.gameObject.GetComponent<Enemy>().Switch;
-                if (needSwitch)
+                if (enemy.gameObject.tag == "vertical")
                 {
-                    newdirection = new Vector2(enemy.transform.position.x, enemy.transform.position.y + 1);
-                    if (CanMove(newdirection))
+                    bool needSwitch = enemy.gameObject.GetComponent<Enemy>().Switch;
+                    if (needSwitch)
                     {
-                        enemy.transform.position = newdirection;
-                        controller.playerhasmoved = false;
+                        newdirection = new Vector2(enemy.transform.position.x, enemy.transform.position.y + 1);
+                        if (CanMove(newdirection))
+                        {
+                            enemy.transform.position = newdirection;
+                            controller.playerhasmoved = false;
+                        }
+                        if (CanMove(newdirection) == false)
+                        {
+                            enemy.gameObject.GetComponent<Enemy>().Switch = false;
+                        }
                     }
-                    if (CanMove(newdirection) == false)
+                    else if (!needSwitch)
                     {
-                        enemy.gameObject.GetComponent<Enemy>().Switch = false;
+                        newdirection = new Vector2(enemy.transform.position.x, enemy.transform.position.y - 1);
+                        if (CanMove(newdirection))
+                        {
+                            enemy.transform.position = newdirection;
+                            controller.playerhasmoved = false;
+                        }
+                        if (CanMove(newdirection) == false)
+                        {
+                            enemy.gameObject.GetComponent<Enemy>().Switch = true;
+                        }
                     }
                 }
-                else if (!needSwitch)
+                else
                 {
-                    newdirection = new Vector2(enemy.transform.position.x, enemy.transform.position.y - 1);
-                    if (CanMove(newdirection))
+                    bool needSwitch = enemy.gameObject.GetComponent<Enemy>().Switch;
+                    if (needSwitch)
                     {
-                        enemy.transform.position = newdirection;
-                        controller.playerhasmoved = false;
+                        newdirection = new Vector2(enemy.transform.position.x+1, enemy.transform.position.y);
+                        if (CanMove(newdirection))
+                        {
+                            enemy.transform.position = newdirection;
+                            controller.playerhasmoved = false;
+                        }
+                        if (CanMove(newdirection) == false)
+                        {
+                            enemy.gameObject.GetComponent<Enemy>().Switch = false;
+                        }
                     }
-                    if (CanMove(newdirection) == false)
+                    else if (!needSwitch)
                     {
-                        enemy.gameObject.GetComponent<Enemy>().Switch = true;
+                        newdirection = new Vector2(enemy.transform.position.x-1, enemy.transform.position.y);
+                        if (CanMove(newdirection))
+                        {
+                            enemy.transform.position = newdirection;
+                            controller.playerhasmoved = false;
+                        }
+                        if (CanMove(newdirection) == false)
+                        {
+                            enemy.gameObject.GetComponent<Enemy>().Switch = true;
+                        }
                     }
                 }
             }

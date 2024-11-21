@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] List<GameObject> collectables = new List<GameObject>();
     [SerializeField] TextMeshProUGUI levelUI;
+    [SerializeField] SoundManager hooray;
     private int currentSceneIndex;
     private void Start()
     {
@@ -24,11 +25,11 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(collectables[i]);
                 collectables.Remove(collectables[i]);
+                hooray.PlaySound();
             }
         }
         if (collectables.Count == 0)
         {
-
             SceneManager.LoadScene(currentSceneIndex + 1);
         }
     }

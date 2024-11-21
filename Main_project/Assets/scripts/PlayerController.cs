@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour
         if (oiledMove() == true && CanMove(lastDirection))
         {
             transform.position += (Vector3)lastDirection;
-            sound.PlaySound();
             playerhasmoved = true;
             if (CanMove(lastDirection) == false)
             {
@@ -56,14 +55,15 @@ public class PlayerController : MonoBehaviour
             lastDirection = direction;
             sound.PlaySound();
         }
-        if(enemy.getcollide() == true)
-        {
-            honk.PlaySound();
-        }
+        //if (enemy.getcollide() == true)
+        //{
+        //    honk.PlaySound();
+        //}
     }
     //checks if can move
     public bool CanMove(Vector2 direction)
     {
+
         Vector3Int gridPosition = ground.WorldToCell(transform.position + (Vector3)direction);
         if (walls.HasTile(gridPosition))
         {
