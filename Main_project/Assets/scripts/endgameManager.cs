@@ -9,7 +9,6 @@ public class endgameManager : MonoBehaviour
     [SerializeField] private Button restart; 
     void Start()
     {
-        // Add an onClick listener to the restart button
         if (restart != null)
         {
             restart.onClick.AddListener(RestartGame);
